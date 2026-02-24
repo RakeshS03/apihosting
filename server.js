@@ -16,7 +16,66 @@ app.get('/', (req, res) => {
    //GET ALL STUDENTS
 
 app.get('/students', (req, res) => {
-    res.json(students);
+
+    // If request comes from browser → send HTML
+    if (req.headers.accept && req.headers.accept.includes('text/html')) {
+
+        let html = `
+            <html>
+            <head>
+                <title>Student List</title>
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 60%;
+                        margin: 40px auto;
+                        font-family: Arial;
+                    }
+                    th, td {
+                        border: 1px solid black;
+                        padding: 10px;
+                        text-align: center;
+                    }
+                    th {
+                        background-color: #f2f2f2;
+                    }
+                    h2 {
+                        text-align: center;
+                    }
+                </style>
+            </head>
+            <body>
+                <h2>Student Data</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                    </tr>
+        `;
+
+        students.forEach(student => {
+            html += `
+                <tr>
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.age}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                </table>
+            </body>
+            </html>
+        `;
+
+        res.send(html);
+
+    } else {
+        // If request comes from Postman → send JSON
+        res.json(students);
+    }
 });
 
    //SINGLE INSERT
