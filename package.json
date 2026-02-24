@@ -1,0 +1,14 @@
+{
+  "name": "student-api",
+  "version": "1.0.0",
+  "description": "Student Management REST API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Rakesh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
